@@ -20,13 +20,13 @@ if (! function_exists('sec_env')) {
      */
     function sec_env($name, $fallback = null)
     {
-        $env = require __DIR__.'./../config/env.php';
-        $crypt = new Illuminate\Encryption\Encrypter($env['key']);
+        //$env = require __DIR__.'./../config/env.php';
+        $crypt = new Illuminate\Encryption\Encrypter(env('ENV_ENCRYPTION_KEY'), 'AES-256-CBC');
 
         $value = env($name);
 
         return empty($value)
-                    ? env($name, $fallback)
-                    : $crypt->decrypt(substr($value, 4));
+            ? env($name, $fallback)
+            : $crypt->decrypt(substr($value, 4));
     }
 }

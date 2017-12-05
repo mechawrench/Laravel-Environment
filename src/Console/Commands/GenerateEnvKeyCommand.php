@@ -35,6 +35,6 @@ class GenerateEnvKeyCommand extends Command
 
     public function handle()
     {
-        $this->info(Str::random(16));
+        $this->info(Str::random(32));
     }
 }
