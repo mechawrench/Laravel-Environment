@@ -20,7 +20,7 @@ if (! function_exists('sec_env')) {
      */
     function sec_env($name, $fallback = null)
     {
-        $env = require __DIR__.'../../config/laravel-env.php';
+        $env = require __DIR__.'../../../../../config/laravel-env.php';
 
         $crypt = new Illuminate\Encryption\Encrypter($env['key'], 'AES-256-CBC');
 
