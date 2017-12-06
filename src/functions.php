@@ -22,12 +22,22 @@ if (! function_exists('sec_env')) {
     {
         $env = require __DIR__.'../../../../../config/laravel-env.php';
 
-        $crypt = new Illuminate\Encryption\Encrypter($env['key'], 'AES-256-CBC');
+        if(!isset($env['key']))
+        {
+            return env($name);
+        }
 
-        $value = env($name);
+        try{
+            $crypt = new Illuminate\Encryption\Encrypter($env['key'], 'AES-256-CBC');
 
-        return empty($value)
-            ? env($name, $fallback)
-            : $crypt->decrypt(substr($value, 4));
+            $value = env($name);
+
+            return empty($value)
+                ? env($name, $fallback)
+                : $crypt->decrypt(substr($value, 4));
+        } catch(\Exception $e){
+            return env($name);
+        }
+
     }
 }
